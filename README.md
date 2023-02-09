@@ -186,3 +186,29 @@ void loop() {
 }
 В этом коде используется библиотека Time и DS1307RTC для работы с реальным временем, а также вычисляется разница между текущим годом и 1980 годом и модулируется время в зависимости от этой разницы.
 ```
+6)Код для мониторинга и контроля процесса открытия временной петли на Arduino
+```
+#include <Time.h>
+#include <Wire.h>
+
+const int modulatorPin = 9;
+const int detectorPin = 8;
+
+void setup() {
+  pinMode(modulatorPin, OUTPUT);
+  pinMode(detectorPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int detectorValue = digitalRead(detectorPin);
+  Serial.println("Detector Value: " + String(detectorValue));
+  
+  if (detectorValue == HIGH) {
+    digitalWrite(modulatorPin, HIGH);
+    delay(1000);
+    digitalWrite(modulatorPin, LOW);
+  }
+}
+```
+
